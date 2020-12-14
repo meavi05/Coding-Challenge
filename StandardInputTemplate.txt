@@ -1,0 +1,59 @@
+----------------------------------------------------------------------
+Input List of Integer in Java 8
+----------------------------------------------------------------------
+ List<List<Integer>> arr = new ArrayList<>();
+
+        IntStream.range(0, n).forEach(i -> {
+            try {
+                arr.add(
+                    Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+                        .map(Integer::parseInt)
+                        .collect(toList())
+                );
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+   
+----------------------------------------------------------------------
+Input List of Integer in Python3
+----------------------------------------------------------------------  
+n = int(input().strip())
+
+    arr = []
+
+    for _ in range(n):
+        arr.append(list(map(int, input().rstrip().split())))   
+
+----------------------------------------------------------------------
+Input Timeconsumed Java
+----------------------------------------------------------------------        
+	InputStream is;
+	PrintWriter out;
+	String INPUT = "";
+	
+	void solve()
+	{
+		int n = ni();
+		int[] a = na(n);
+		int[] f = new int[101];
+		for(int v : a)f[v]++;
+		int ret = 0;
+		for(int v : f)ret += v/2;
+		out.println(ret);
+	}
+	
+	void run() throws Exception
+	{
+		is = INPUT.isEmpty() ? System.in : new ByteArrayInputStream(INPUT.getBytes());
+		out = new PrintWriter(System.out);
+		
+		long s = System.currentTimeMillis();
+		solve();
+		out.flush();
+		if(!INPUT.isEmpty())tr(System.currentTimeMillis()-s+"ms");
+	}
+	
+	public static void main(String[] args) throws Exception { new A().run(); }
+	
+	
