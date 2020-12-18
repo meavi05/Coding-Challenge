@@ -105,6 +105,58 @@ GCD  Java
     }
     return n1;
   }
+  
+----------------------------------------------------------------------
+Get All SubArray Iterative Java
+----------------------------------------------------------------------  
+static List<List<Integer>> printIterativeSubArrays(List<Integer>arr,List<List<Integer>> subArrays) 
+	{
+	        // Pick starting point
+	        for (int i=0; i <arr.size(); i++)
+	        {
+	            // Pick ending point
+	            for (int j=i; j<arr.size(); j++)
+	            {
+	                // Print subarray between current starting
+	                // and ending points
+	            	List<Integer> subArray = new ArrayList<Integer>();
+	                for (int k=i; k<=j; k++)
+	                	subArray.add(arr.get(j));
+	                subArrays.add(subArray);
+	            }
+	        }
+		return subArrays;      
+	} 
+----------------------------------------------------------------------
+Get All SubArray Recursion Java
+---------------------------------------------------------------------- 
+  	static List<List<Integer>> printSubArrays(List<Integer>arr, int start, int end,List<List<Integer>> subArrays) 
+	{      
+	    // Stop if we have reached the end of the array      
+	    if (end == arr.size())  
+	        return subArrays; 
+	      
+	    // Increment the end point and start from 0  
+	    else if (start > end)  
+	        printSubArrays(arr, 0, end + 1,subArrays); 
+	          
+	    // Print the subarray and increment the starting point  
+	    else
+	    { 
+	    	System.out.print("["); 
+	        List<Integer> subarray = new ArrayList<Integer>(); 
+	        for (int i = start; i < end; i++){ 
+	            System.out.print(arr.get(i)+", "); 
+	            subarray.add(arr.get(i));
+	        } 
+	        subarray.add(arr.get(end)); 
+	        subArrays.add(subarray);
+	        System.out.println(arr.get(end)+"]"); 
+	        printSubArrays(arr, start + 1, end,subArrays); 
+	    } 
+	      
+	    return subArrays; 
+	} 
   ----------------------------------------------------------------------
 Fast Scanner  Java
 ----------------------------------------------------------------------  
