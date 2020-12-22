@@ -71,6 +71,24 @@ Power  Java
   }
 
 ----------------------------------------------------------------------
+Union input and make parent connection for Graph in Java
+----------------------------------------------------------------------
+private void union(int start, int end) {
+       int parent_s=parent(start),parent_e=parent(end);
+       if(parent_s!=parent_e){
+       parent[parent_s]=parent_e;
+       }
+    }
+
+    private int parent(int currentElement) {
+        if(parent[currentElement]==currentElement)return currentElement;
+        else {
+            int k=parent(parent[currentElement]);
+            parent[currentElement]=k;
+            return k;
+            }
+    }  
+----------------------------------------------------------------------
 IsPrime Java
 ----------------------------------------------------------------------
    boolean isPrime(long n) {
@@ -157,6 +175,47 @@ Get All SubArray Recursion Java
 	      
 	    return subArrays; 
 	} 
+
+
+  ----------------------------------------------------------------------
+Standard Graph template
+----------------------------------------------------------------------  
+
+class Graph {
+
+	int numberOfVertex, numberOfEdge;
+	List<Edge> edges;
+
+	Graph(int numberOfVertex, int numberOfEdge) {
+		this.numberOfVertex = numberOfVertex;
+		this.numberOfEdge = numberOfEdge;
+		edges = new ArrayList<Edge>(numberOfEdge);
+		for (int i = 0; i < numberOfEdge; i++) {
+			edges.add(new Edge());
+		}
+	}
+
+	public List<List<Integer>> getAdjacencyList() {
+		List<List<Integer>> adjList = new ArrayList<List<Integer>>(numberOfVertex);
+		for (int i = 0; i < numberOfVertex; i++) {
+			adjList.add(new ArrayList<Integer>());
+		}
+		for (int i = 0; i < edges.size(); i++) {
+			adjList.get(edges.get(i).source).add(edges.get(i).destination);
+			adjList.get(edges.get(i).destination).add(edges.get(i).source);
+		}
+		return adjList;
+	}
+}
+
+class Edge implements Comparable<Edge> {
+	int source, destination, weight;
+
+	@Override
+	public int compareTo(Edge compareEdge) {
+		return this.weight - compareEdge.weight;
+	}
+}
   ----------------------------------------------------------------------
 Fast Scanner  Java
 ----------------------------------------------------------------------  
