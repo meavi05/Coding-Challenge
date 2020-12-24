@@ -25,10 +25,11 @@ class JourneyToMoon {
 		return n * fact(n - 1);
 	}
 
-	public static long modifiedBFS(List<List<Integer>> adjList, boolean[] visited, int s) {
+	public static long modifiedBFS(List<List<Integer>> adjList, boolean[] visited, int s, Set<Integer> componentDetails) {
 		long sameCountryAstronauts = 1;
 		LinkedList<Integer> queue = new LinkedList<Integer>();
 		visited[s] = true;
+		componentDetails.add(s);
 		queue.add(s);
 		while (queue.size() != 0) {
 			int cs = queue.poll();
@@ -36,6 +37,7 @@ class JourneyToMoon {
 			while (i.hasNext()) {
 				int n = i.next();
 				if (!visited[n]) {
+					componentDetails.add(n);
 					sameCountryAstronauts++;
 					visited[n] = true;
 					queue.add(n);
@@ -62,28 +64,13 @@ class JourneyToMoon {
 		}
 	}
 
-	/**
-	 * 
-	 * For the unweighted graph, <name>:
-	 *
-	 * 1. The number of nodes is <name>Nodes. 2. The number of edges is <name>Edges.
-	 * 3. An edge exists between <name>From[i] to <name>To[i].
-	 * 
-	 * @param graphTo
-	 * @param graphFrom
-	 * @param graphNodes
-	 * @param y
-	 * @param x
-	 *
-	 *
-	 * 
-	 * @param graphNodes
-	 * @param graphFrom
-	 * @param graphTo
-	 * @param colorToAnalyse
-	 * @param roadCost
-	 * @return
-	 */
+/**
+ * 
+ * @param graphNodes
+ * @param graphFrom
+ * @param graphTo
+ * @return
+ */
 	public static long solve(Integer graphNodes, List<Integer> graphFrom, List<Integer> graphTo) {
 
 		List<List<Integer>> adjList = new ArrayList<List<Integer>>(graphNodes);
@@ -104,9 +91,12 @@ class JourneyToMoon {
 		boolean[] visited = new boolean[graphNodes];
 		int graphComponents = 0;
 		long[] eachgraphComponentLength = new long[graphNodes];
+		List<Set<Integer>>graphComponentsDetail = new ArrayList<Set<Integer>>();
 		for (int i = 0; i < visited.length; i++) {
 			if (!visited[i]) {
-				eachgraphComponentLength[graphComponents] = JourneyToMoon.modifiedBFS(adjList, visited, i);
+				Set<Integer> componentDetails = new HashSet<Integer>();
+				eachgraphComponentLength[graphComponents] = JourneyToMoon.modifiedBFS(adjList, visited, i,componentDetails);
+				graphComponentsDetail.add(componentDetails);
 				graphComponents = graphComponents + 1;
 			}
 		}
@@ -119,7 +109,7 @@ class JourneyToMoon {
 		return (totalPairs - sameCountryPairs);
 	}
 
-	private static void getGraphComponentsDetails_UnionFind(Integer graphNodes, List<Integer> graphFrom,
+	public static void getGraphComponentsDetails_UnionFind(Integer graphNodes, List<Integer> graphFrom,
 			List<Integer> graphTo) {
 		int parent[] = new int[graphNodes];
 		for (int i = 1; i < parent.length; i++) {
