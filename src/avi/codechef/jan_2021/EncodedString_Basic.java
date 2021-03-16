@@ -28,12 +28,12 @@ class EncodedString {
 public class EncodedString_Basic {
 
 	public static void main(String[] args) throws IOException {
-		File file = new File("resources\\Codechef\\EncodedString_Basic_Output.txt");
+		File file = new File(EncodedString_Basic.class.getClassLoader().getResource("Codechef/EncodedString_Basic_Output.txt").getPath());
+				//new File("resources\\Codechef\\EncodedString_Basic_Output.txt");
 		file.createNewFile();
 		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-		BufferedReader bufferedReader = new BufferedReader(
-				(new FileReader("resources\\Codechef\\EncodedString_Basic_Input.txt")));
-		//BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+		BufferedReader bufferedReader = new BufferedReader((new FileReader(new File(EncodedString_Basic.class.getClassLoader().getResource("Codechef/EncodedString_Basic_Input.txt").getPath()))));
 		int queries = Integer.parseInt(bufferedReader.readLine());
 		while(queries>0) {
 		int numberOfBits = Integer.parseInt((bufferedReader.readLine().replaceAll("\\s+$", "")));
